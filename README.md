@@ -1,4 +1,4 @@
-# plib_dynamic_player
+# Dynamic Player
 A true dynamic update of the size of the player's box, his camera, and other stuff.
 
 ## Requires
