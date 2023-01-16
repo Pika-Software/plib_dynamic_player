@@ -34,7 +34,7 @@ hook.Add('PlayerModelChanged', 'Dynamic Player', function( ply, model )
 
 				local height = (maxs[3] - mins[3]) * 0.9
 				local eyePosition = ply:WorldToLocal( ply:GetEyePosition() )[3]
-				if (eyePosition >= 1) and (eyePosition > (height / 3)) and (eyePosition < height) then
+				if (eyePosition >= 1) and (eyePosition > (height / 1.5)) and (eyePosition < height) then
 					ply:SetViewOffsetDucked( Vector( 0, 0, eyePosition * 0.6 ) )
 					ply:SetViewOffset( Vector( 0, 0, eyePosition ) )
 				else
