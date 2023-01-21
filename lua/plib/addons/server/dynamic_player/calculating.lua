@@ -1,12 +1,32 @@
+local timer_Simple = timer.Simple
 local table_insert = table.insert
 local WorldToLocal = WorldToLocal
+local ents_Create = ents.Create
 local isnumber = isnumber
+local IsValid = IsValid
 local ipairs = ipairs
 local Vector = Vector
 local math = math
 local util = util
 
 module( 'dynamic_player' )
+
+function CreateDummy( mdl, isCrouching )
+	local ent = ents_Create( 'plib_dynamic_player' )
+	if IsValid( ent ) then
+		ent:SetCrouching( isCrouching )
+		ent:SetModel( mdl )
+		ent:Spawn()
+
+		timer_Simple(0, function()
+			if IsValid( ent ) then
+				ent:Remove()
+			end
+		end)
+
+		return ent
+	end
+end
 
 function CalcByEntity( ent )
 	local mins, maxs = Vector(), Vector()
