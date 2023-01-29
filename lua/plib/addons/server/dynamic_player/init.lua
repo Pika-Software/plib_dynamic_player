@@ -49,14 +49,22 @@ hook.Add('PlayerModelChanged', 'Dynamic Player', function( ply, model )
 					-- Duck Eyes Height Calc
 					eyeHeightDuck = math.Round( crouchingDummy:WorldToLocal( crouchingDummy:GetEyePosition() )[3] ) + 1
 
+					-- Eye position correction
+					local height = (maxs[3] - mins[3]) * 0.9
+					eyeHeight = math.floor( math.Clamp( eyeHeight, 5, height ) )
+					eyeHeightDuck = math.floor( math.max( 5, eyeHeightDuck, height * 0.7 ) )
+
+					-- Height correction
+					duckHeight = math.floor( math.max( duckHeight, eyeHeightDuck + 5 ) )
+					maxs[3] = math.floor( math.max( maxs[3], eyeHeight + 5 ) )
+
 					-- Saving results in cache
 					modelCache[ model ] = { { mins, maxs }, duckHeight, { eyeHeight, eyeHeightDuck } }
 				end
 
 				-- Selecting Eyes Level
-				local height = (maxs[3] - mins[3]) * 0.9
-				ply:SetViewOffset( Vector( 0, 0, math.max( 1, math.min( eyeHeight, height ) ) ) )
-				ply:SetViewOffsetDucked( Vector( 0, 0, math.max( 1, eyeHeightDuck, height * 0.7 ) ) )
+				ply:SetViewOffset( Vector( 0, 0, eyeHeight ) )
+				ply:SetViewOffsetDucked( Vector( 0, 0, eyeHeightDuck ) )
 			else
 				if (cache == nil) then
 					-- Hulls Calc
