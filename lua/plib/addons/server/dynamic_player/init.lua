@@ -11,6 +11,7 @@ local Vector = Vector
 local select = select
 local math = math
 
+local vector_zero = Vector()
 local modelCache = {}
 
 hook.Add('PlayerModelChanged', 'Dynamic Player', function( ply, model )
@@ -47,12 +48,11 @@ hook.Add('PlayerModelChanged', 'Dynamic Player', function( ply, model )
 					end
 
 					-- Duck Eyes Height Calc
-					eyeHeightDuck = math.Round( crouchingDummy:WorldToLocal( crouchingDummy:GetEyePosition() )[3] ) + 1
+					eyeHeightDuck = math.Round( crouchingDummy:WorldToLocal( crouchingDummy:GetEyePosition() )[3] )
 
 					-- Eye position correction
-					local height = (maxs[3] - mins[3]) * 0.9
-					eyeHeight = math.floor( math.Clamp( eyeHeight, 5, height ) )
-					eyeHeightDuck = math.floor( math.max( 5, eyeHeightDuck, height * 0.7 ) )
+					eyeHeight = math.floor( math.max( eyeHeight - 5, 5 ) )
+					eyeHeightDuck = math.floor( math.max( 5, eyeHeightDuck, (maxs[3] - mins[3]) * 0.6 ) )
 
 					-- Height correction
 					duckHeight = math.floor( math.max( duckHeight, eyeHeightDuck + 5 ) )
