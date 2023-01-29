@@ -11,7 +11,6 @@ local Vector = Vector
 local select = select
 local math = math
 
-local vector_zero = Vector()
 local modelCache = {}
 
 hook.Add('PlayerModelChanged', 'Dynamic Player', function( ply, model )
